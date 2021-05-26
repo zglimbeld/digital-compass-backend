@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const fetch = require('node-fetch');
 
-app.get('/test', (req, res) => {
-  const param = req.query.param;
+app.get('/', (req, res) => {
+  // const param = req.query.param;
 
-  res.json({ 'param': param});
+  res.json({ 'Hello': 'World!' });
 })
 
 app.get('/landing', (req, res) => {

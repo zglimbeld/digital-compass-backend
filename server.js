@@ -2,6 +2,12 @@ const express = require('express');
 const app = express();
 const fetch = require('node-fetch');
 
+app.get('/test', (req, res) => {
+  const param = req.query.param;
+
+  res.json({ 'param': param});
+})
+
 app.get('/landing', (req, res) => {
   const codeParam = req.query.code;
 

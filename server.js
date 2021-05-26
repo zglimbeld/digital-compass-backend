@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
   // const param = req.query.param;
 
   res.json({ 'Hello': 'World!' });
-})
+});
 
 app.get('/landing', (req, res) => {
   const codeParam = req.query.code;

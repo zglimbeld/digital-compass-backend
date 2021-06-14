@@ -19,9 +19,11 @@ app.get('/landing', (req, res) => {
     client_id: '469218404399973',
     client_secret: '50976c32493171dfd63e20358bfeaed9',
     grant_type: 'authorization_code',
-    redirect_uri: 'localhost:8080/landing',
+    redirect_uri: 'https://zglimbeld.github.io/test-dc/',
     code: code
   }
+
+  console.log(JSON.stringify(exchangeBody));
 
   fetch('https://api.instagram.com/oauth/access_token', {
     method: 'POST',
@@ -32,7 +34,9 @@ app.get('/landing', (req, res) => {
   .then(json => console.log(json));
 });
 
+const port = process.env.PORT || 8080
 
-app.listen(8080, () => {
-  console.log('Server running on port 8080');
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

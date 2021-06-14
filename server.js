@@ -3,7 +3,7 @@ const app = express();
 const fetch = require('node-fetch');
 
 app.get('/', (req, res) => {
-  res.redirect(`https://api.instagram.com/oauth/authorize?client_id=469218404399973&redirect_uri=http://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code`);
+  res.redirect(`https://api.instagram.com/oauth/authorize?client_id=469218404399973&redirect_uri=https://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code`);
 });
 
 app.get('/landing', (req, res) => {
@@ -16,7 +16,7 @@ app.get('/landing', (req, res) => {
     client_id: '469218404399973',
     client_secret: '50976c32493171dfd63e20358bfeaed9',
     grant_type: 'authorization_code',
-    redirect_uri: 'http://digitalcompass.azurewebsites.net/landing',
+    redirect_uri: 'https://digitalcompass.azurewebsites.net/landing',
     code: code
   }
 

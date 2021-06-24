@@ -1,6 +1,7 @@
 const express = require('express');
-const app = express();
 const fetch = require('node-fetch');
+
+const app = express();
 
 app.get('/', (req, res) => {
   res.redirect(`https://api.instagram.com/oauth/authorize?client_id=469218404399973&redirect_uri=https://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code`);

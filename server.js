@@ -38,25 +38,26 @@ app.get('/landing', (req, res) => {
   else {
     const user_id = user_id_param.slice(0, -2);
 
-    exchangeBody = {
-      client_id: app_id,
-      client_secret: app_secret,
-      grant_type: 'authorization_code',
-      redirect_uri: 'https://digitalcompass.azurewebsites.net/landing',
-      code: code
-    }
+    loadAppData()
+    .then(data => {
+      const app_id = data[0];
+      const app_secret = data[1];
+      const exchangeBody = {
+        client_id: app_id,
+        client_secret: app_secret,
+        grant_type: 'authorization_code',
+        redirect_uri: 'https://digitalcompass.azurewebsites.net/landing',
+        code: code
+      }
 
-    fetch('https://api.instagram.com/oauth/access_token', {
-      method: 'POST',
-      body: JSON.stringify(exchangeBody),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(res => res.json())
-    .then(json => {
-      const access_token = json.access_token;
-      loadAppData()
-      .then(data => {
-        const app_secret = data[1];
+      fetch('https://api.instagram.com/oauth/access_token', {
+        method: 'POST',
+        body: JSON.stringify(exchangeBody),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(json => {
+        const access_token = json.access_token;
         fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${app_secret}&access_token=${access_token}`, {
           method: 'GET'
         })
@@ -69,7 +70,7 @@ app.get('/landing', (req, res) => {
           });
         });
       });
-    });
+    });  
   }
 });
 

@@ -48,7 +48,7 @@ app.get('/landing', (req, res) => {
         grant_type: 'authorization_code',
         redirect_uri: 'https://digitalcompass.azurewebsites.net/landing',
         code: code
-      }
+      };
 
       fetch('https://api.instagram.com/oauth/access_token', {
         method: 'POST',

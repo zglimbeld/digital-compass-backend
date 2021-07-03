@@ -33,7 +33,6 @@ app.get('/landing', (req, res) => {
   }
   else {
     const code = code_param.slice(0, -2);
-    console.log(`Received code ${code}`);
 
     exchangeBody = {
       client_id: app_id,
@@ -43,7 +42,6 @@ app.get('/landing', (req, res) => {
       code: code
     }
 
-    console.log(JSON.stringify(exchangeBody));
     fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       body: JSON.stringify(exchangeBody),
@@ -51,7 +49,6 @@ app.get('/landing', (req, res) => {
     })
     .then(res => res.json())
     .then(json => {
-      console.log(json);
       const access_token = json.access_token;
       loadAppData()
       .then(data => {
@@ -61,7 +58,6 @@ app.get('/landing', (req, res) => {
         })
         .then(res => res.json())
         .then(json => {
-          console.log(json);
           const access_token = json.access_token;
           addToken(user_id, access_token)
           .then(() => {
@@ -81,15 +77,12 @@ app.get('/media', (req, res) => {
   else {
     findToken(user_id)
     .then(data => {
-      console.log(typeof(data));
       if (data.length === 0) {
-        console.log('Here we goooo');
         res.redirect(`/?user=${user_id}`)
       }
       else {
         const access_token_data = data[0];
         const access_token = access_token_data[0];
-        console.log(access_token);
         fetch(`https://graph.instagram.com/me/media?field=id,caption&access_token=${access_token}`, {
           method: 'GET'
         })

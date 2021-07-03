@@ -90,12 +90,12 @@ const getAppData = async () => {
 
 const testResults = async () => {
   // console.log(await createUser({
-    //     firstName: 'Hugo',
-    //     lastName: 'BOSS',
-    //     userName: 'testing123',
-    //     pass: '123',
-    //     email: 'hugo.BOSS@gmail.com'
-    // }));
+  //       firstName: 'Hugo',
+  //       lastName: 'BOSS',
+  //       userName: 'testing1234',
+  //       pass: '123',
+  //       email: 'hugo.BOSS@gmail.com'
+  //   }));
     
   // console.log(await findUser('philippplein'));
 

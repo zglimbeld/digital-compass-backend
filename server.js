@@ -57,18 +57,28 @@ app.get('/landing', (req, res) => {
       })
       .then(res => res.json())
       .then(json => {
-        const access_token = json.access_token;
-        fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${app_secret}&access_token=${access_token}`, {
-          method: 'GET'
-        })
-        .then(res => res.json())
-        .then(json => {
+        if (json.error) {
+          res.status(400).json(json.error.message);
+        }
+        else {
           const access_token = json.access_token;
-          addToken(user_id, access_token)
-          .then(() => {
-            res.status(201).json('Successfully saved access token!');
+          fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${app_secret}&access_token=${access_token}`, {
+            method: 'GET'
+          })
+          .then(res => res.json())
+          .then(json => {
+            if (json.error) {
+              res.status(400).json(json.error.message)
+            }
+            else {
+              const access_token = json.access_token;
+              addToken(user_id, access_token)
+              .then(() => {
+                res.status(201).json('Successfully saved access token!');
+              });
+            }
           });
-        });
+        }
       });
     });  
   }

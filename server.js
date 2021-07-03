@@ -42,23 +42,22 @@ app.get('/landing', (req, res) => {
     .then(data => {
       const app_id = data[0];
       const app_secret = data[1];
-      const exchangeBody = {
-        client_id: app_id,
-        client_secret: app_secret,
-        grant_type: 'authorization_code',
-        redirect_uri: 'https://digitalcompass.azurewebsites.net/landing',
-        code: code
-      };
+      const exchangeBody = new FormData();
+      exchangeBody.append('client_id', `${app_id}`);
+      exchangeBody.append('client_secret', `${app_secret}`);
+      exchangeBody.append('grant_type', 'authorization_code');
+      exchangeBody.append('redirect_uri', 'https://digitalcompass.azurewebsites.net/landing');
+      exchangeBody.append('code', `${code}`);
 
       fetch('https://api.instagram.com/oauth/access_token', {
         method: 'POST',
-        body: JSON.stringify(exchangeBody),
-        headers: { 'Content-Type': 'application/json' }
+        body: exchangeBody,
+        headers: { 'Content-Type': 'multipart/form-data' }
       })
       .then(res => res.json())
       .then(json => {
-        if (json.error) {
-          res.status(400).json(json.error.message);
+        if (!json.access_token) {
+          res.status(400).json(json);
         }
         else {
           const access_token = json.access_token;
@@ -67,8 +66,8 @@ app.get('/landing', (req, res) => {
           })
           .then(res => res.json())
           .then(json => {
-            if (json.error) {
-              res.status(400).json(json.error.message);
+            if (!json.access_token) {
+              res.status(400).json(json);
             }
             else {
               const access_token = json.access_token;
@@ -98,7 +97,7 @@ app.get('/media', (req, res) => {
       else {
         const access_token_data = data[0];
         const access_token = access_token_data[0];
-        fetch(`https://graph.instagram.com/me/media?field=id,caption&access_token=${access_token}`, {
+        fetch(`https://graph.instagram.com/me/media?field=id,caption,media_url&access_token=${access_token}`, {
           method: 'GET'
         })
         .then(res => res.json())

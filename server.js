@@ -19,7 +19,8 @@ loadAppData();
 app.get('/', (req, res) => {
   const user_id = req.query.user;
   if (!user_id) {
-    res.status(403).json({ message: 'Please provide a user id!', app_id: app_id });
+    res.status(403).json({ 'app_id': `client_id=${app_id}` });
+    console.log(app_id, app_secret);
   }
   else {
     res.redirect(`https://api.instagram.com/oauth/authorize?client_id=${app_id}&redirect_uri=https://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code&state=${user_id}`);

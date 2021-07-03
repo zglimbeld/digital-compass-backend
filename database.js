@@ -26,7 +26,7 @@ executeSql = query => new Promise((resolve, reject) => {
       reject(err);
     }
     else {
-      if ((result == "" || result == null || result == "null")) result = "[]";
+      if ((result == "" || result == null || result == "null")) result = [];
       resolve(result);
     }
     connection.close();

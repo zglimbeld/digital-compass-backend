@@ -36,7 +36,8 @@ app.get('/landing', (req, res) => {
     res.status(400).json('Something went wrong!');
   }
   else {
-    const user_id = user_id_param
+    const user_id = user_id_param;
+    
     // .slice(0, -2);
 
     exchangeBody = {

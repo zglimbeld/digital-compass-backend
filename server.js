@@ -97,7 +97,7 @@ app.get('/media', (req, res) => {
       else {
         const access_token_data = data[0];
         const access_token = access_token_data[0];
-        fetch(`https://graph.instagram.com/me/media?field=id,caption,media_url&access_token=${access_token}`, {
+        fetch(`https://graph.instagram.com/me/media?fields=id,caption,media_url&access_token=${access_token}`, {
           method: 'GET'
         })
         .then(res => res.json())

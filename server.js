@@ -68,7 +68,7 @@ app.get('/landing', (req, res) => {
           .then(res => res.json())
           .then(json => {
             if (json.error) {
-              res.status(400).json(json.error.message)
+              res.status(400).json(json.error.message);
             }
             else {
               const access_token = json.access_token;

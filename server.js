@@ -11,6 +11,10 @@ const loadAppData = async () => {
   return [app_id, app_secret];
 }
 
+app.get('/', (req, res) => {
+  res.status(200).json('Hello and welcome to Digital Compass!');
+});
+
 app.get('/auth-ig', (req, res) => {
   const user_id = req.query.user;
   if (!user_id) {
@@ -93,8 +97,7 @@ app.get('/media', (req, res) => {
   }
 });
 
-const port = process.env.PORT || 8080
-
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

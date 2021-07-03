@@ -11,19 +11,17 @@ const loadAppData = async () => {
   return [app_id, app_secret];
 }
 
-var app_id, app_secret;
-
-loadAppData();
-
-
 app.get('/', (req, res) => {
   const user_id = req.query.user;
   if (!user_id) {
-    res.status(403).json({ 'app_id': `client_id=${app_id}` });
-    console.log(app_id, app_secret);
+    res.status(403).json('Please specify a user!');
   }
   else {
-    res.redirect(`https://api.instagram.com/oauth/authorize?client_id=${app_id}&redirect_uri=https://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code&state=${user_id}`);
+    loadAppData()
+    .then(data => {
+      const app_id = data[0];
+      res.redirect(`https://api.instagram.com/oauth/authorize?client_id=${app_id}&redirect_uri=https://digitalcompass.azurewebsites.net/landing&scope=user_profile,user_media&response_type=code&state=${user_id}`);
+    });
   }
 });
 

@@ -11,7 +11,7 @@ const loadAppData = async () => {
   return [app_id, app_secret];
 }
 
-app.get('/', (req, res) => {
+app.get('/auth-ig', (req, res) => {
   const user_id = req.query.user;
   if (!user_id) {
     res.status(403).json('Please specify a user!');
@@ -26,13 +26,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/landing', (req, res) => {
-  const code_param = req.query.code;
-  const user_id = req.query.state;
-  if (!code_param || !user_id) {
+  const code = req.query.code;
+  const user_id_param = req.query.state;
+  if (!code || !user_id_param) {
     res.status(400).json('Something went wrong!');
   }
   else {
-    const code = code_param.slice(0, -2);
+    const user_id = user_id_param.slice(0, -2);
 
     exchangeBody = {
       client_id: app_id,

@@ -73,8 +73,6 @@ app.get('/landing', (req, res) => {
     res.status(400).json('Something went wrong!');
   }
   else {
-    // const user_id = user_id_param.slice(0, -2);
-
     loadAppData()
     .then(data => {
       const app_id = data[0];
@@ -111,15 +109,15 @@ app.get('/landing', (req, res) => {
               .then(() => {
                 res.status(201).json('Successfully saved access token!');
               })
-              .catch(err => res.status(400).json({ step: 'addToken', token: access_token, user_id: user_id }));
+              .catch(err => res.status(400).json({ step: 'addToken', message: err }));
             }
           })
-          .catch(err => res.status(400).json('fetch longLivedAccessToken'));
+          .catch(err => res.status(400).json({ step: 'longLivedAccessToken', message: err }));
         }
       })
-      .catch(err => res.status(400).json('fetch shortLivedAccessToken'));
+      .catch(err => res.status(400).json({ step: 'shortLivedAccessToken', message: err }));
     })
-    .catch(err => res.status(400).json(err));
+    .catch(err => res.status(400).json({ step: 'loadAppData', message: err }));
   }
 });
 
@@ -132,7 +130,7 @@ app.get('/media', (req, res) => {
     findToken(user_id)
     .then(data => {
       if (data.length === 0) {
-        res.redirect(`/?user=${user_id}`)
+        res.redirect(`/auth-ig?user=${user_id}`);
       }
       else {
         const access_token_data = data[0];

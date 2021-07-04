@@ -111,7 +111,7 @@ app.get('/landing', (req, res) => {
               .then(() => {
                 res.status(201).json('Successfully saved access token!');
               })
-              .catch(err => res.status(400).json({ message: 'addToken', token: access_token }));
+              .catch(err => res.status(400).json({ step: 'addToken', token: access_token }));
             }
           })
           .catch(err => res.status(400).json('fetch longLivedAccessToken'));

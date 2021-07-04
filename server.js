@@ -1,10 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const FormData = require('form-data');
 const { createUser, findUser, addToken, findToken, getAppData } = require('./database.js');
 
 const app = express();
-const jsonParser = bodyParser.json();
+app.use(express.json())
 
 const loadAppData = async () => {
   const app_data = await getAppData();
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.status(200).json('Hello and welcome to Digital Compass!');
 });
 
-app.get('/login', jsonParser, (req, res) => {
+app.get('/login', (req, res) => {
   const username = req.body.username;
   const pass = req.body.password;
   
@@ -35,7 +35,7 @@ app.get('/login', jsonParser, (req, res) => {
   .catch(err => res.status(400).json(err));
 });
 
-app.post('/register', jsonParser, (req, res) => {
+app.post('/register', (req, res) => {
   const user_data = {
     userName: req.body.username,
     firstName: req.body.firstname,
@@ -89,7 +89,6 @@ app.get('/landing', (req, res) => {
       fetch('https://api.instagram.com/oauth/access_token', {
         method: 'POST',
         body: exchangeBody,
-        headers: { 'Content-Type': 'multipart/form-data' }
       })
       .then(res => res.json())
       .then(json => {
@@ -112,13 +111,13 @@ app.get('/landing', (req, res) => {
               .then(() => {
                 res.status(201).json('Successfully saved access token!');
               })
-              .catch(err => res.status(400).json(err));
+              .catch(err => res.status(400).json('addToken'));
             }
           })
-          .catch(err => res.status(400).json(err));
+          .catch(err => res.status(400).json('fetch longLivedAccessToken'));
         }
       })
-      .catch(err => res.status(400).json(err));
+      .catch(err => res.status(400).json('fetch shortLivedAccessToken'));
     })
     .catch(err => res.status(400).json(err));
   }

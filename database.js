@@ -61,7 +61,7 @@ const createUser = async userData => {
 }
 
 const findUser = async userName => {
-  const queryText = `SELECT UserId FROM dbo.DigitalCompassUser WHERE UserName='${userName.toLowerCase()}'`;
+  const queryText = `SELECT UserId, Pass, FirstName, LastName FROM dbo.DigitalCompassUser WHERE UserName='${userName.toLowerCase()}'`;
   const result = await executeSql(queryText);
   return result;
 }

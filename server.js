@@ -31,7 +31,8 @@ app.get('/login', jsonParser, (req, res) => {
     else {
       res.status(401).json('Wrong password!');
     }
-  });
+  })
+  .catch(err => res.status(400).json(err));
 });
 
 app.post('/register', jsonParser, (req, res) => {

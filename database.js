@@ -1,5 +1,5 @@
 const { Connection, Request } = require('tedious');
-const { addDays, formatDate } = require("./utils.js");
+const { addDays, formatDate } = require("./utils/utils.js");
 
 const config = {
   authentication: {

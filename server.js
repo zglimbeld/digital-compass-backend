@@ -68,12 +68,12 @@ app.get('/auth-ig', (req, res) => {
 
 app.get('/landing', (req, res) => {
   const code = req.query.code;
-  const user_id_param = req.query.state;
-  if (!code || !user_id_param) {
+  const user_id = req.query.state;
+  if (!code || !user_id) {
     res.status(400).json('Something went wrong!');
   }
   else {
-    const user_id = user_id_param.slice(0, -2);
+    // const user_id = user_id_param.slice(0, -2);
 
     loadAppData()
     .then(data => {

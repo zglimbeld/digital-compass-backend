@@ -87,27 +87,6 @@ const getAppData = async () => {
   return result;
 }
   
-
-const testResults = async () => {
-  // console.log(await createUser({
-  //       firstName: 'Hugo',
-  //       lastName: 'BOSS',
-  //       userName: 'testing1234',
-  //       pass: '123',
-  //       email: 'hugo.BOSS@gmail.com'
-  //   }));
-    
-  // console.log(await findUser('philippplein'));
-
-  // console.log(await addToken(9, 'test_token'));
-
-  // console.log(await findToken(4));
-
-  // console.log(await getAppData());
-}
-
-testResults();
-  
 exports.createUser = createUser;
 exports.findUser = findUser;
 exports.addToken = addToken;
